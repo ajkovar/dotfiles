@@ -51,4 +51,18 @@ def paste
   `pbpaste`
 end
 
+def ls
+  Dir['*']
+end
+
+alias :l :ls
+
+%w(chdir pwd).each do |command|
+  eval <<-ENDEVAL
+    def #{command} *args
+      Dir.#{command} *args
+    end
+  ENDEVAL
+end
+
 load File.dirname(__FILE__) + '/.railsrc' if $0 == 'irb' && ENV['RAILS_ENV']
