@@ -65,4 +65,10 @@ alias :l :ls
   ENDEVAL
 end
 
+alias :cd :chdir
+
+def cd(dir=ENV['HOME'])
+  chdir dir
+end
+
 load File.dirname(__FILE__) + '/.railsrc' if $0 == 'irb' && ENV['RAILS_ENV']
