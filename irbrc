@@ -14,6 +14,12 @@ IRB.conf[:PROMPT_MODE] = :SIMPLE
   end
 end
 
+begin
+  Wirble.init
+  Wirble.colorize
+rescue
+end
+
 class Object
   # list methods which aren't in superclass
   def local_methods(obj = self)
@@ -69,6 +75,11 @@ alias :cd :chdir
 
 def cd(dir=ENV['HOME'])
   chdir dir
+end
+
+def method_missing(symbol)
+  puts "Method missing '#{symbol.to_s}'. Converted symbol name to string."
+  symbol.to_s
 end
 
 load File.dirname(__FILE__) + '/.railsrc' if $0 == 'irb' && ENV['RAILS_ENV']
